@@ -1,28 +1,30 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: 'AIzaSyDNaMOYOOKg6Lsa4oSXsZZ4IzqHLQi-Beg',
-    authDomain: 'expense-tracker-v1-76285.firebaseapp.com',
-    projectId: 'expense-tracker-v1-76285',
-    storageBucket: 'expense-tracker-v1-76285.appspot.com',
-    messagingSenderId: '175947447790',
-    appId: '1:175947447790:web:bcc18d194127f5d08462ff',
-    measurementId: 'G-1X0260EXZK',
+    apiKey: import.meta.env.VITE_API_KEY,
+    authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_APP_ID,
+    measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 }
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig)
-const analytics = getAnalytics(app)
+let app, analytics
+try {
+    // Initialize Firebase
+    app = initializeApp(firebaseConfig)
+
+    // Initialize analytics only if in the browser environment
+    if (typeof window !== 'undefined') {
+        analytics = getAnalytics(app)
+    }
+} catch (error) {
+    console.error('Firebase initialization error:', error)
+}
+
 export const auth = getAuth(app)
 export const provider = new GoogleAuthProvider()
-
-// firebase login
-// firebase init
-// firebase deploy
