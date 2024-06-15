@@ -1,23 +1,31 @@
 import React from 'react'
+import { useAddTransaction } from '../hooks/useAddTransaction'
 
 const AddTransaction = () => {
+    const { addTransaction } = useAddTransaction()
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        console.log(addTransaction('haircut', 300, 'expense'))
+    }
+
     return (
         <>
-            <form className="flex flex-col gap-3">
+            <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-2">
                     <input
                         type="text"
                         name="description"
                         placeholder="description"
                         className="w-full rounded border border-zinc-800 p-2"
-                        required
+                        // required
                     />
                     <input
                         type="number"
                         name="amount"
                         placeholder="amount"
                         className="w-full rounded border border-zinc-800 p-2"
-                        required
+                        // required
                     />
                 </div>
                 <div className="flex gap-6">
