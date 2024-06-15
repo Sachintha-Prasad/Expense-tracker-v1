@@ -4,7 +4,10 @@ import { GlobalContext } from '../context/GlobalState'
 
 const TransactionHistory = () => {
     const { transactions } = useContext(GlobalContext)
-    console.log(transactions)
+
+    const capitalize = (text) => {
+        return text[0].toUpperCase() + text.slice(1).toLowerCase()
+    }
 
     return (
         <>
@@ -12,21 +15,24 @@ const TransactionHistory = () => {
 
             <div className="h-auto max-h-[300px] overflow-y-scroll">
                 <div className="flex flex-col gap-2">
-                    {transactions.map((transaction) => (
+                    {transactions.map((transaction, index) => (
                         <div
-                            key={transaction.userId}
-                            className={`group flex min-h-[50px] cursor-pointer items-center justify-between gap-2 overflow-x-hidden rounded bg-green-50 px-4 py-2 hover:bg-green-100 ${
+                            key={index}
+                            className={`flex min-h-[50px] cursor-pointer items-center justify-between gap-2 overflow-x-hidden rounded bg-green-50 px-4 py-2 hover:bg-green-100 ${
                                 transaction.transactionType === 'expense' &&
                                 'bg-red-50 hover:bg-red-100'
                             }`}
                         >
-                            <p>{transaction.description}</p>
-                            <div className="flex translate-x-[50px] items-center gap-4 transition-all duration-300 ease-linear group-hover:translate-x-0">
+                            <div className="felx-col flex">
+                                <p>{capitalize(transaction.description)}</p>
+                            </div>
+                            <div className="flex items-center gap-4 transition-all duration-300 ease-linear">
                                 <p>
                                     LKR
-                                    {transaction.transactionAmount.toFixed(2)}
+                                    {Number(
+                                        transaction.transactionAmount
+                                    ).toFixed(2)}
                                 </p>
-                                <HiOutlineTrash className="rounded-full bg-red-400 p-[6px] text-3xl capitalize text-white hover:bg-red-300" />
                             </div>
                         </div>
                     ))}

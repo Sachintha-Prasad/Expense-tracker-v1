@@ -1,43 +1,28 @@
-import react, { createContext, useReducer } from 'react'
+// GlobalContext.js
+import React, { createContext, useReducer, useEffect } from 'react'
 import AppReducer from './AppReducer'
+import { useGetTransactions } from '../hooks/useGetTransactions'
 
 const initialState = {
-    transactions: [
-        {
-            userId: '1',
-            description: 'salary',
-            transactionAmount: 350000,
-            transactionType: 'income',
-        },
-        {
-            userId: '2',
-            description:
-                'buy a new laptop for my friend because his birthday is in tommorow',
-            transactionAmount: 250000,
-            transactionType: 'expense',
-        },
-        {
-            userId: '3',
-            description: 'buy a dog',
-            transactionAmount: 30000,
-            transactionType: 'expense',
-        },
-        {
-            userId: '4',
-            description: 'sell old phone',
-            transactionAmount: 100000,
-            transactionType: 'income',
-        },
-    ],
+    transactions: [],
 }
 
 export const GlobalContext = createContext(initialState)
 
 export const GlobalProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AppReducer, initialState)
+    const { transactions } = useGetTransactions()
+
+    useEffect(() => {
+        if (transactions.length > 0) {
+            dispatch({ type: 'SET_TRANSACTIONS', payload: transactions })
+        }
+    }, [transactions])
 
     return (
-        <GlobalContext.Provider value={{ transactions: state.transactions }}>
+        <GlobalContext.Provider
+            value={{ transactions: state.transactions, dispatch }}
+        >
             {children}
         </GlobalContext.Provider>
     )

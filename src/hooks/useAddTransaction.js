@@ -12,7 +12,13 @@ export const useAddTransaction = () => {
         transactionAmount,
         transactionType
     ) => {
-        console.log(userId, description, transactionAmount, transactionType)
+        console.log(
+            'here',
+            userId,
+            description,
+            transactionAmount,
+            transactionType
+        )
 
         addDoc(transactionCollectionRef, {
             userId,

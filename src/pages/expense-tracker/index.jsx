@@ -5,14 +5,25 @@ import Balance from '../../components/Balance'
 import TransactionHistory from '../../components/TransactionHistory'
 
 import { GlobalProvider } from '../../context/GlobalState'
+import { useGetUserInfo } from '../../hooks/useGetUserInfo'
 
 export const ExpenseTracker = () => {
+    const { profilePhoto } = useGetUserInfo()
+
     return (
         <GlobalProvider>
             <div className="container max-w-[950px]">
-                <div className="text-primary-green flex items-center gap-2 pt-6 font-medium md:text-xl">
-                    <img src={logo} alt="" className="max-w-[50px]" />
-                    Expense Tracker V1
+                <div className="flex items-center justify-between pt-6">
+                    <div className="text-primary-green flex items-center gap-2 font-medium md:text-xl">
+                        <img src={logo} alt="" className="max-w-[50px]" />
+                        Expense Tracker V1
+                    </div>
+
+                    <img
+                        src={profilePhoto}
+                        alt=""
+                        className="w-full max-w-[45px] rounded-full"
+                    />
                 </div>
                 <div className="grid grid-cols-1 gap-x-8 gap-y-6 py-6 text-zinc-800 md:grid-cols-2 md:gap-y-12 md:py-16">
                     <div className="flex w-full flex-col justify-between">
