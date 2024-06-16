@@ -8,7 +8,6 @@ const TransactionHistory = () => {
     const capitalize = (text) => {
         return text[0].toUpperCase() + text.slice(1).toLowerCase()
     }
-
     return (
         <>
             <h2 className="mb-3 font-medium md:text-lg">Transaction history</h2>
