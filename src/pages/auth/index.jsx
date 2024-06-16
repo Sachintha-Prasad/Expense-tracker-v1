@@ -1,10 +1,12 @@
 import { auth, provider } from '../../config/firebase-config'
 import { signInWithPopup } from 'firebase/auth'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import logo from '../../../public/tab-logo.png'
+import { useGetUserInfo } from '../../hooks/useGetUserInfo'
 
 export const Auth = () => {
     const navigate = useNavigate()
+    const { isAuth } = useGetUserInfo()
 
     const signInWithGoogle = async () => {
         const result = await signInWithPopup(auth, provider)
@@ -18,6 +20,8 @@ export const Auth = () => {
         localStorage.setItem('auth', JSON.stringify(authInfo))
         navigate('/expense-tracker')
     }
+
+    if (isAuth) return <Navigate to={'/expense-tracker'} />
 
     return (
         <div className="bg-gradient-to-r from-teal-500 to-green-300">
