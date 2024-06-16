@@ -1,8 +1,3 @@
-
-Certainly! Here's an updated and more professional README description incorporating the provided details:
-
----
-
 # Expense Tracker v1
 
 Expense Tracker v1 is a modern web application built with [React.js](https://reactjs.org/), styled using [Tailwind CSS](https://tailwindcss.com/), and powered by [Firebase](https://firebase.google.com/). This application leverages custom hooks and the React Context API to manage and track the global state of user transactions in real-time, offering a seamless and responsive user experience.
